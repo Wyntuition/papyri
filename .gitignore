@@ -37,3 +37,9 @@ out/
 .settings
 .classpath
 .factorypath
+
+# UI
+node_modules
+dist
+.cache
+

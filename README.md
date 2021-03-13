@@ -1,16 +1,18 @@
 # papyri
 
-Papyri is a tool to fetch and manage your personal data.
+Papyri is a tool to fetch and manage your data.
 
 ## Getting Started
 
-It is built using Micronaut, Java, Gradle and JavaScript. 
-
+The API is a Micronaut, Java, and Gradle microservice, and the UI is a very stripped-down React app. 
 
 1. Clone this repo.
 
 1. Install Java (_On Mac_: `brew install java`, _On Linux_: https://sdkman.io/install then `sdk install java`)
 
+### Starting the API
+
+1. `cd api`
 1. Build and run: `./gradlew build run`
 
 ## Deployment 

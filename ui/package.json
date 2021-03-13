@@ -1,0 +1,19 @@
+{
+  "name": "papyri-ui",
+  "version": "0.1.0",
+  "description": "The UI for Papyri",
+  "repository": "github.com/Wyntuition/papyri",
+  "scripts": {
+    "start": "",
+    "build": ""
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {},
+  "babel": {
+    "presets": []
+  }
+}
