@@ -9,7 +9,9 @@ It is built using Micronaut, Java, Gradle and JavaScript.
 
 1. Clone this repo.
 
-1. 
+1. Install Java (_On Mac_: `brew install java`, _On Linux_: https://sdkman.io/install then `sdk install java`)
+
+1. Build and run: `./gradlew build run`
 
 ## Deployment 
 
