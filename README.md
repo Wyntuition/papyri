@@ -1,10 +1,18 @@
 # papyri
 
-Papyri is a tool to fetch and manage your data.
+Papyri is a tool to fetch, manage and own your data.
 
-## Getting Started
+## Technical Overview 
 
-The API is a Micronaut, Java, and Gradle microservice, and the UI is a very stripped-down React app. 
+It is a monorepo, consisting of API and UI microservices.
+
+The API is a Micronaut, Java, and Gradle microservice, and the UI is a very stripped-down React app.
+
+It is written using functional reactive programming (FRP) using Java and Vavr.
+
+It is deployed onto a standalone Linux server with Docker, as well as onto a bare bones Kubernetes instance. It includes a development environment using Kubernetes (Minikube).
+
+## Getting Started 
 
 1. Clone this repo.
 
@@ -15,11 +23,27 @@ The API is a Micronaut, Java, and Gradle microservice, and the UI is a very stri
 1. `cd api`
 1. Build and run: `./gradlew build run`
 
+### Starting the API
+
+1. Navigate to the `ui-pure/index.html` file
+
 ## Deployment 
 
 The plan is to use Kubernetes to closely mirror the development environment from production (within reason!). For now, NGINX on a Linux box will be used.
 
 A GitOps-style setup with ArgoCD will be evaluated for Kubernetes.  
+
+# Contributing
+
+//todo
+
+## Development Norms
+
+//todo
+
+# Code of Conduct
+
+//todo
 
 # Reference
 
