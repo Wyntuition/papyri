@@ -8,7 +8,7 @@ It is a monorepo, consisting of API and UI microservices.
 
 The API is a Micronaut, Java, and Gradle microservice, and the UI is a very stripped-down React app.
 
-It is written using functional reactive programming (FRP) using Java and Vavr.
+It is written using functional reactive programming (FRP) using Java, Vavr and JavaScript.
 
 It is deployed onto a standalone Linux server with Docker, as well as onto a bare bones Kubernetes instance. It includes a development environment using Kubernetes (Minikube).
 
