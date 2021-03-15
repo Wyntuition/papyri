@@ -2,6 +2,8 @@
 
 Papyri is a tool to fetch, manage and own your data.
 
+The idea for the name `Papyri` comes from the _Villa of Papyri_ in the ancient Roman city of Herculean in present-day southern Italy, which had a fabled library with a world-class collection of _papyri_, or scrolls, of great knowledge.   
+
 ## Technical Overview 
 
 It is a monorepo, consisting of API and UI microservices.
@@ -10,20 +12,20 @@ The API is a Micronaut, Java, and Gradle microservice, and the UI is a very stri
 
 It is written using functional reactive programming (FRP) using Java, Vavr, RxJava and JavaScript, and RxJs.
 
-It is deployed onto a standalone Linux server with Docker, as well as onto a bare bones Kubernetes instance. It includes a development environment using Kubernetes (Minikube).
+It is deployable onto a standalone Linux server with Docker (JVM, Nginx containers), or a Kubernetes. It includes a development environment using Kubernetes as well.
 
 ## Getting Started 
 
-1. Clone this repo.
+1. Clone this repo and `cd papyri`.
 
-1. Install Java (_On Mac_: `brew install java`, _On Linux_: https://sdkman.io/install then `sdk install java`)
+1. Install Java ([Install SDKMan](https://sdkman.io/install) then run `sdk install java`)
 
-### Starting the API
+### Start the API
 
 1. `cd api`
 1. Build and run: `./gradlew build run`
 
-### Starting the API
+### Start the UI
 
 1. Navigate to the `ui-pure/index.html` file
 
@@ -47,7 +49,15 @@ A GitOps-style setup with ArgoCD will be evaluated for Kubernetes.
 
 # Reference
 
-## Built using Micronaut
+## Built using 
+- Micronaut
+- Bare-bones React
+
+
+### React Documentation
+
+- [Learning React, 2nd Edition](https://learning.oreilly.com/library/view/learning-react-2nd/9781492051718/ch01.html)
+- [Docs](https://reactjs.org/docs/)
 
 ### Micronaut 2.4.0 Documentation
 
