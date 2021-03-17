@@ -1,4 +1,4 @@
-package papyri;
+package com.papyri;
 
 import io.micronaut.runtime.Micronaut;
 

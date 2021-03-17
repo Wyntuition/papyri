@@ -28,7 +28,7 @@ dependencies {
 
 
 application {
-    mainClass.set("papyri.Application")
+    mainClass.set("com.papyri.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
