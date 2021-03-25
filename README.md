@@ -23,7 +23,7 @@ It is deployable onto a standalone Linux server with Docker (JVM, Nginx containe
 ### Start the API
 
 1. `cd api`
-1. Build and run: `./gradlew build run`
+1. Build and run: `./gradlew build run`. View the [API via Swagger](http://localhost:8080/swagger/views/swagger-ui/).
 
 ### Start the UI
 
