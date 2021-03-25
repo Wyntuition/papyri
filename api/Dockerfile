@@ -1,14 +1,15 @@
-# Builds native image for GraalVM
-FROM oracle/graalvm-ce:20.1.0-java8 as graalvm
+## TODO - build jar?
+
+##TODO switch gradle image so doesn't re-download gradle etc
+#FROM openjdk:15-jdk-alpine
+FROM ghcr.io/graalvm/graalvm-ce:latest as graalvm
 RUN gu install native-image
-
-COPY . /home/app/papyri
-WORKDIR /home/app/papyri
-
-RUN native-image --no-server -cp build/libs/papyri-*-all.jar
+COPY . /usr/bin/papyri
+WORKDIR /usr/bin/papyri
+#RUN ./gradlew build
+RUN native-image --no-server -cp build/libs/*-all.jar
 
 FROM frolvlad/alpine-glibc
 RUN apk update && apk add libstdc++
-EXPOSE 8080
-COPY --from=graalvm /home/app/papyri/papyri /app/papyri
-ENTRYPOINT ["/app/papyri"]
+COPY --from=graalvm /usr/bin/papyri/build/libs /usr/bin/papyri
+CMD ["/usr/bin/papyri/papyri", "-Xmx68m"]
