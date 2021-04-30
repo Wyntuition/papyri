@@ -2,7 +2,13 @@
 
 Papyri is a tool to fetch, manage and own your data.
 
-The idea for the name `Papyri` comes from the _Villa of Papyri_ in the ancient Roman city of Herculean in present-day southern Italy, which had a fabled library with a world-class collection of _papyri_, or scrolls, of great knowledge.   
+The idea for the name `Papyri` comes from the _Villa of Papyri_ in the ancient Roman city of Herculean in present-day southern Italy, which had a fabled library with a world-class collection of _papyri_, or scrolls, of great knowledge.
+
+<img src="https://github.com/Wyntuition/papyri/raw/main/papyri(WoB).jpeg" width="100">
+
+## Overview
+
+See this [diagram](https://miro.com/app/board/o9J_lLMivaI=/) for an overview of the functionality.
 
 ## Technical Overview 
 

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Controller
+@Sfl4j
 public class CrawlerController {
 
     @Get(uri="/crawler/apis", produces= MediaType.TEXT_PLAIN)
@@ -20,7 +21,9 @@ public class CrawlerController {
     @ApiResponse(responseCode = "404", description = "No APIs found")
     @Tag(name = "crawler")
     public String externalApis() {
+        log.info("Calling...");
         return "Spotify\nPocket\nGmail\niDrive";
+
     }
 
     @Get(uri="/crawler/api/{api}", produces= MediaType.TEXT_PLAIN)
