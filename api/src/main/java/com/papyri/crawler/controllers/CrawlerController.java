@@ -1,5 +1,6 @@
 package com.papyri.crawler.controllers;
 
+import com.papyri.ApiRequest;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
@@ -9,10 +10,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.inject.Inject;
 
 @Controller
-@Sfl4j
+@Slf4j
 public class CrawlerController {
+
+    @Inject
+    private ApiRequest apiRequest;
 
     @Get(uri="/crawler/apis", produces= MediaType.TEXT_PLAIN)
     @Operation(summary = "API List", description = "Returns list of available APIs to grab data from")
@@ -33,7 +40,15 @@ public class CrawlerController {
     @ApiResponse(responseCode = "404", description = "API info not found")
     @Tag(name = "crawler")
     public String apiInfo(String api) {
-        return api;
+        // STEP 1: log into spotify with client id/secret, allow user to auth. Receive token back.
+        // STEP 2: fetch user's playlists
+        // STEP 3: save data into datastore
+        // STEP 4: browse and refresh that data
+
+        // API call
+        // Controller > SpotifyApi > http request > auth
+
+        return apiRequest.postRequest("https://postman-echo.com/post", "Sample request body from: " + api);
     }
 
     @Post(uri="/mydata/save/{api}", produces= MediaType.TEXT_PLAIN)

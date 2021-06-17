@@ -26,6 +26,8 @@ It is deployable onto a standalone Linux server with Docker (JVM, Nginx containe
 
 1. Install Java ([Install SDKMan](https://sdkman.io/install) then run `sdk install java`)
 
+1. For Spotify, [register the app](https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app) to get a client ID to use
+
 ### Start the API
 
 1. `cd api`
