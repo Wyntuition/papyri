@@ -10,15 +10,23 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static java.net.http.HttpRequest.newBuilder;
+
 @Singleton
 public class ApiRequest {
 
-    public String postRequest(String url, String body) {
+    public CompletableFuture<HttpResponse<String>> get(String url) throws URISyntaxException {
+        return HttpClient.newHttpClient().sendAsync(newBuilder(new URI(url))
+                .GET().build(),HttpResponse.BodyHandlers.ofString());
+    }
+
+    public String post(String url, String contentType, String body, String token) {
         HttpResponse response = null;
         try {
-            java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
+            java.net.http.HttpRequest request = newBuilder()
                     .uri(new URI(url))
-                    .headers("Content-Type", "text/plain;charset=UTF-8")
+                    //.headers("Content-Type", contentType, "Authorization", String.format("Basic %s", token))
+                    .headers("Content-Type", contentType)
                     .POST(java.net.http.HttpRequest.BodyPublishers.ofString(body))
                     .build();
 
@@ -35,17 +43,4 @@ public class ApiRequest {
         return response != null ? response.body().toString() : null;
     }
 
-    private List<CompletableFuture<String>> multipleHttpRequest() throws URISyntaxException {
-        List<URI> targets = Arrays.asList(
-                new URI("https://postman-echo.com/get?foo1=bar1"),
-                new URI("https://postman-echo.com/get?foo2=bar2"));
-        HttpClient client = HttpClient.newHttpClient();
-        return targets.stream()
-                .map(target -> client
-                        .sendAsync(
-                                java.net.http.HttpRequest.newBuilder(target).GET().build(),
-                                HttpResponse.BodyHandlers.ofString())
-                        .thenApply(HttpResponse::body))
-                .collect(Collectors.toList());
-    }
 }
