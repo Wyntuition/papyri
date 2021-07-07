@@ -28,6 +28,12 @@ It is deployable onto a standalone Linux server with Docker (JVM, Nginx containe
 
 1. For Spotify, [register the app](https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app) to get a client ID to use
 
+    1. Ensure the app has access to these via *environment variables*:
+        ```bash 
+        SPOTIFY_CLIENT_ID=<ENTER>
+        SPOTIFY_CLIENT_SECRET=<ENTER>
+        ```
+
 ### Start the API
 
 1. `cd api`

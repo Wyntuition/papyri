@@ -1,6 +1,8 @@
 # papyri api
 
-## Build & run the API 
+See [the top-level README](../README.md)
+
+## Build & run the API Quickstart 
 
 1. Type `./gradlew build run`. 
 1. View the [API via Swagger](http://localhost:8080/swagger/views/swagger-ui/)
@@ -8,8 +10,3 @@
 
     `curl http://localhost:8080/crawler/apis`
 
-1.Ensure the app has access to these via *environment variables*:
-   ```bash 
-   SPOTIFY_CLIENT_ID=<ENTER>
-   SPOTIFY_CLIENT_SECRET=<ENTER>
-   ```
