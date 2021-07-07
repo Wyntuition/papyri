@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
@@ -31,9 +32,33 @@ public class AuthController {
 
     @Get(uri="/auth/callback", produces= MediaType.TEXT_PLAIN)
     @ApiResponse(content = @Content(mediaType =  "text/plain", schema = @Schema(type="string")))
-    public String authorizeCallback(String code) throws URISyntaxException, ExecutionException, InterruptedException, UnsupportedEncodingException, JsonProcessingException {
+    public HttpResponse<?> authorizeCallback(String code) throws URISyntaxException, ExecutionException, InterruptedException, UnsupportedEncodingException, JsonProcessingException {
         log.info("Auth Callback: token...");
-        return authApiRequest.token(code);
+        var tokens  =  authApiRequest.token(code);
+        var token = new JSONObject(tokens).getString("access_token");
+
+        //? redriect back
+        var playlist = authApiRequest.get(savedTracks(), token).get().body();;
+        //var playlist = authApiRequest.get(playlists(127855684), token).get().body();;
+        //var playlist = authApiRequest.get(playlistTracks("7IqhCGwlLdzzoRSA6zXval"), token).get().body();;
+
+        return HttpResponse.ok(playlist);
+    }
+
+    private String playlists(int userId) {
+        return "https://api.spotify.com/v1/users/" + userId + "/playlists";
+    }
+
+    private String playlistDetails(String playlistId) {
+        return "https://api.spotify.com/v1/playlists/" + playlistId;
+    }
+
+    private String savedTracks() {
+        return "https://api.spotify.com/v1/me/tracks?limit=50";
+    }
+
+    private String playlistTracks(String playlistId) {
+        return "https://api.spotify.com/v1/playlists/" + playlistId + "/tracks";
     }
 
 }

@@ -1,7 +1,6 @@
 package com.papyri.data;
 
 import io.micronaut.context.annotation.Property;
-import io.micronaut.context.annotation.Value;
 
 import javax.inject.Singleton;
 
@@ -25,6 +24,6 @@ public class Repository {
     }
 
     public String getScopes() {
-        return "user-read-private";
+        return "user-read-private,user-library-read";
     }
 }

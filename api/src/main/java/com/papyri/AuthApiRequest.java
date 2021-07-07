@@ -1,17 +1,13 @@
 package com.papyri;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.papyri.data.Repository;
 
 import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 public class AuthApiRequest extends ApiRequest {
 
@@ -44,7 +40,7 @@ public class AuthApiRequest extends ApiRequest {
     /*
     FIRST CALL
      */
-    public String authorizeUrl() throws URISyntaxException, ExecutionException, InterruptedException, UnsupportedEncodingException {
+    public String authorizeUrl() throws UnsupportedEncodingException {
         // CALL 1. Initial values set received when registering app
         String clientId = repository.getClientId();
         String redirectUri = repository.getRedirectUrl();
@@ -69,7 +65,7 @@ public class AuthApiRequest extends ApiRequest {
     authorizationCode from first call
     RETURNS access & refresh tokens
      */
-    public String token(String authorizationCode) throws URISyntaxException, ExecutionException, InterruptedException, UnsupportedEncodingException, JsonProcessingException {
+    public String token(String authorizationCode) throws UnsupportedEncodingException {
         var values = new HashMap<String, String>() {{
             put("grant_type", "authorization_code");
             put ("redirect_uri", repository.getRedirectUrl());
