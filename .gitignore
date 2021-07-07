@@ -43,3 +43,5 @@ node_modules
 dist
 .cache
 
+# don't check in
+.secrets 
