@@ -5,10 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 import static java.net.http.HttpRequest.newBuilder;
 
@@ -40,9 +37,6 @@ public class ApiRequest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Techniques
-        // call 2 services, thenCombine - CompleteableFuture; stream of asynchromously processed data - RxJava
 
         return response != null ? response.body().toString() : null;
     }
