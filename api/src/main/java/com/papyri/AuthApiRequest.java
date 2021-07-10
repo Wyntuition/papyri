@@ -67,7 +67,8 @@ public class AuthApiRequest extends ApiRequest {
      */
     public String token(String authorizationCode) throws UnsupportedEncodingException {
         var values = new HashMap<String, String>() {{
-            put("grant_type", "authorization_code");
+            //put("grant_type", "authorization_code");
+            put("grant_type", "client_credentials");
             put ("redirect_uri", repository.getRedirectUrl());
             put("code", authorizationCode);
             put("client_id", repository.getClientId());

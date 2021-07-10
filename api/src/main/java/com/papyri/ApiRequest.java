@@ -12,6 +12,7 @@ import static java.net.http.HttpRequest.newBuilder;
 @Singleton
 public class ApiRequest {
 
+    //todo why not use Micronaut's
     public CompletableFuture<HttpResponse<String>> get(String url, String token) throws URISyntaxException {
         var response = HttpClient.newHttpClient().sendAsync(
                 newBuilder(new URI(url))

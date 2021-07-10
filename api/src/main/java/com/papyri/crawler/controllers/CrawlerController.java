@@ -1,11 +1,14 @@
 package com.papyri.crawler.controllers;
 
-import com.papyri.AuthApiRequest;
+import com.papyri.crawler.services.CrawlerService;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Post;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 public class CrawlerController {
 
     @Inject
-    private AuthApiRequest authApiRequest;
+    CrawlerService crawlerService;
 
     @Get(uri="/crawler/apis", produces= MediaType.TEXT_PLAIN)
     @Operation(summary = "API List", description = "Returns list of available APIs to grab data from")
@@ -57,5 +60,10 @@ public class CrawlerController {
     public String getMyData(String api) throws URISyntaxException, ExecutionException, InterruptedException {
         //todo: data category loop; will add things like list of sources for music playlists, albums, files, articles, videos; tags across these
         return null;
+    }
+
+    @Get(uri="/playlists/{userId}", produces=MediaType.APPLICATION_JSON)
+    public HttpResponse<?> playlists(@Header("Authorization") String authorization, @Parameter String userId) throws URISyntaxException, ExecutionException, InterruptedException {
+        return HttpResponse.ok(crawlerService.getPlaylists(authorization.split("Bearer ")[1], 127855684));
     }
 }

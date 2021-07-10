@@ -24,6 +24,6 @@ public class Repository {
     }
 
     public String getScopes() {
-        return "user-read-private,user-library-read";
+        return "user-read-private,user-library-read,playlist-read-private";
     }
 }
