@@ -26,7 +26,7 @@ It is deployable onto a standalone Linux server with Docker (JVM, Nginx containe
 
 1. Install Java ([Install SDKMan](https://sdkman.io/install) then run `sdk install java`)
 
-1. For Spotify, [register the app](https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app) to get a client ID to use
+1. For Spotify, [register the app](https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app) to get a client ID and secret to use
 
     1. Ensure the app has access to these via *environment variables*:
         ```bash 
@@ -37,7 +37,7 @@ It is deployable onto a standalone Linux server with Docker (JVM, Nginx containe
 ### Start the API
 
 1. `cd api`
-1. Build and run: `./gradlew build run`. View the [API via Swagger](http://localhost:8080/swagger/views/swagger-ui/).
+1. Build and run: `./gradlew build run` or via the Gradle pane in IntelliJ (recommended). View the [API via Swagger](http://localhost:8080/swagger/views/swagger-ui/).
 
 ### Start the UI
 

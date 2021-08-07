@@ -22,13 +22,12 @@ public class ApiRequest {
         return response;
     }
 
-    public String post(String url, String contentType, String body, String token) {
+    public String post(String url, String contentType, String body, String authorizationHeaderValue) {
         HttpResponse response = null;
         try {
             java.net.http.HttpRequest request = newBuilder()
                     .uri(new URI(url))
-                    //.headers("Content-Type", contentType, "Authorization", "Bearer" + token)
-                    .headers("Content-Type", contentType)
+                    .headers("Content-Type", contentType, "Authorization", authorizationHeaderValue)
                     .POST(java.net.http.HttpRequest.BodyPublishers.ofString(body))
                     .build();
 

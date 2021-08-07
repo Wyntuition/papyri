@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,38 +38,30 @@ public class AuthApiRequest extends ApiRequest {
     @Inject
     private Repository repository;
 
-    /*
-    FIRST CALL
-     */
     public String authorizeUrl() throws UnsupportedEncodingException {
-        // CALL 1. Initial values set received when registering app
         String clientId = repository.getClientId();
         String redirectUri = repository.getRedirectUrl();
 
-        // Send payload:
-        //                response_type: 'code',
-        //                client_id: client_id,
-        //                scope: scope,
-        //                redirect_uri: redirect_uri,
-        //                state: state
         return String.format
                 ("https://accounts.spotify.com/authorize?response_type=code&client_id=%s&scope=%s&redirect_uri=%s&state=%s",
-                clientId, repository.getScopes(), encodeValue(redirectUri), "abcd1234");
+                        clientId, repository.getScopes(), encodeValue(redirectUri), "abcd1234"); //todo state
     }
 
     private String encodeValue(String value) throws UnsupportedEncodingException {
         return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
     }
 
+    private String base64EncodeValue(String value) throws UnsupportedEncodingException {
+        return Base64.getEncoder().encodeToString(value.getBytes());
+    }
+
     /*
-    SECOND CALL
-    authorizationCode from first call
+    SECOND CALL - AuthorizationCode from first call
     RETURNS access & refresh tokens
      */
     public String token(String authorizationCode) throws UnsupportedEncodingException {
         var values = new HashMap<String, String>() {{
-            //put("grant_type", "authorization_code");
-            put("grant_type", "client_credentials");
+            put("grant_type", "authorization_code");
             put ("redirect_uri", repository.getRedirectUrl());
             put("code", authorizationCode);
             put("client_id", repository.getClientId());
@@ -79,7 +72,20 @@ public class AuthApiRequest extends ApiRequest {
                 "https://accounts.spotify.com/api/token",
                 "application/x-www-form-urlencoded",
                 getDataString(values),
-                encodeValue(repository.getClientId() + ":" + repository.getClientSecret()));
+                "Basic " + base64EncodeValue(repository.getClientId() + ":" + repository.getClientSecret()));
+    }
+
+    public String tokenClientCredential() throws UnsupportedEncodingException {
+        var values = new HashMap<String, String>() {{
+            put("grant_type", "client_credentials");
+            put("scope", repository.getScopes());
+        }};
+
+        return post(
+                "https://accounts.spotify.com/api/token",
+                "application/x-www-form-urlencoded",
+                getDataString(values),
+                "Basic " + base64EncodeValue(repository.getClientId() + ":" + repository.getClientSecret()));
     }
 
     private String getDataString(HashMap<String, String> params) throws UnsupportedEncodingException{

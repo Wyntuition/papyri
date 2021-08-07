@@ -66,4 +66,9 @@ public class CrawlerController {
     public HttpResponse<?> playlists(@Header("Authorization") String authorization, @Parameter String userId) throws URISyntaxException, ExecutionException, InterruptedException {
         return HttpResponse.ok(crawlerService.getPlaylists(authorization.split("Bearer ")[1], 127855684));
     }
+
+    @Get(uri="/me/tracks", produces=MediaType.APPLICATION_JSON)
+    public HttpResponse<?> myTracks(@Header("Authorization") String authorization) throws URISyntaxException, ExecutionException, InterruptedException {
+        return HttpResponse.ok(crawlerService.getSavedTracks(authorization.split("Bearer ")[1]));
+    }
 }
