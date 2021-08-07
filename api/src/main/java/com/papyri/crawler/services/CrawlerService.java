@@ -22,8 +22,8 @@ public class CrawlerService {
         //var playlist = authApiRequest.get(playlistTracks("7IqhCGwlLdzzoRSA6zXval"), token).get().body();;
 
         var resultObject = new JSONObject(playlist);
-        var trks = resultObject.getJSONArray("items");
         //todo will return invalid access token if invalid, then look like no items
+        var trks = resultObject.getJSONArray("items");
 
         List<Object> playlists = new ArrayList<>();
         for (int i = 0; i < trks.length(); i++) {
@@ -38,6 +38,7 @@ public class CrawlerService {
         var playlist = authApiRequest.get(savedTracks(0), token).get().body();
 
         var resultObject = new JSONObject(playlist);
+        //todo will return invalid access token if invalid, then look like no items
         var trks = resultObject.getJSONArray("items");
 
         ObjectMapper mapper = new ObjectMapper();

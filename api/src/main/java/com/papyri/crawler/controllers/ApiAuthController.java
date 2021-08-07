@@ -33,9 +33,22 @@ public class ApiAuthController {
     @Get(uri="/auth/callback", produces=MediaType.TEXT_PLAIN)
     @ApiResponse(content = @Content(mediaType =  "text/plain", schema = @Schema(type="string")))
     public HttpResponse<?> authorizeCallback(String code) throws URISyntaxException, ExecutionException, InterruptedException, UnsupportedEncodingException {
-        //todo: client_credentials; use auth flow for doing this with UI/users, but determine overall strategy - when backing up/doing background data migration might need access
         log.info("Auth Callback: token...");
         var tokens  =  authApiRequest.token(code);
+        //todo: refresh token
+        var token = new JSONObject(tokens).getString("access_token");
+        return HttpResponse.ok(token);
+    }
+
+    //todo non-redirect version with client_credentials for non-browser?
+    //      NOTE: Only endpoints that do not access user information can be accessed
+    //      client_credentials; use auth flow for doing this with UI/users, but determine overall strategy - when backing up/doing background data migration might need access
+    @Get(uri="/auth/clientcredential", produces=MediaType.APPLICATION_JSON)
+    public HttpResponse<String> clientcredential() throws URISyntaxException, ExecutionException, InterruptedException, UnsupportedEncodingException {
+        var tokens  =  authApiRequest.tokenClientCredential();
+        //tokens.contains("error")
+
+        //todo: refresh token
         var token = new JSONObject(tokens).getString("access_token");
         return HttpResponse.ok(token);
     }
