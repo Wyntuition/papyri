@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 
+//todo auth for these URLs
 @Controller
 @Slf4j
 public class CrawlerController {
@@ -47,13 +48,6 @@ public class CrawlerController {
         return api;
     }
 
-    @Post(uri="/mydata/save/{api}", produces= MediaType.TEXT_PLAIN)
-    @Operation(summary = "Gets API info", description = "API info about a specific API returned")
-    @Tag(name = "mydata")
-    public String saveMyData(String api) {
-        return api;
-    }
-
     @Get(uri="/mydata/{api}", produces= MediaType.TEXT_PLAIN)
     @Operation(summary = "Gets data from given API", description = "Gets your data for the given service's API")
     @Tag(name = "mydata")
@@ -63,12 +57,22 @@ public class CrawlerController {
     }
 
     @Get(uri="/playlists/{userId}", produces=MediaType.APPLICATION_JSON)
-    public HttpResponse<?> playlists(@Header("Authorization") String authorization, @Parameter String userId) throws URISyntaxException, ExecutionException, InterruptedException {
-        return HttpResponse.ok(crawlerService.getPlaylists(authorization.split("Bearer ")[1], 127855684));
+    public HttpResponse<?> playlists(@Header("Authorization") String authorization, @Parameter int userId) throws URISyntaxException, ExecutionException, InterruptedException {
+        return HttpResponse.ok(crawlerService.getPlaylists(authorization.split("Bearer ")[1], userId));
+    }
+
+    @Get(uri="/playlist/{id}", produces=MediaType.APPLICATION_JSON)
+    public HttpResponse<?> playlistTracksPerPlaylist(@Header("Authorization") String authorization, @Parameter String id, @Parameter int offset) throws URISyntaxException, ExecutionException, InterruptedException {
+        return HttpResponse.ok(crawlerService.getPlaylistTracks(authorization.split("Bearer ")[1], id, offset));
+    }
+
+    @Get(uri="/playlist/{id}", produces=MediaType.APPLICATION_JSON)
+    public HttpResponse<?> playlistTracks(@Header("Authorization") String authorization, @Parameter String id, @Parameter int offset) throws URISyntaxException, ExecutionException, InterruptedException {
+        return HttpResponse.ok(crawlerService.getPlaylistTracks(authorization.split("Bearer ")[1], id, offset));
     }
 
     @Get(uri="/me/tracks", produces=MediaType.APPLICATION_JSON)
-    public HttpResponse<?> myTracks(@Header("Authorization") String authorization) throws URISyntaxException, ExecutionException, InterruptedException {
-        return HttpResponse.ok(crawlerService.getSavedTracks(authorization.split("Bearer ")[1]));
+    public HttpResponse<?> myTracks(@Header("Authorization") String authorization, @Parameter int offset) throws URISyntaxException, ExecutionException, InterruptedException {
+        return HttpResponse.ok(crawlerService.getSavedTracks(authorization.split("Bearer ")[1], offset));
     }
 }

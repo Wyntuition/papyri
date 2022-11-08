@@ -3,6 +3,7 @@ package com.papyri;
 import com.papyri.data.Repository;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -10,6 +11,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+@Singleton
 public class AuthApiRequest extends ApiRequest {
 
     // OVERALL WORKFLOW - SPOTIFY
@@ -18,11 +20,11 @@ public class AuthApiRequest extends ApiRequest {
         // STEP 3: save data into datastore
         // STEP 4: browse and refresh that data
 
-    // AUTH FLOW STEPS
+    // AUTHORIZATION CODE FLOW - STEPS
     //        Handling the user login request
     //        Specifying the scopes for which authorization is sought
     //        Performing the exchange of the authorization code for an access token
-    //        Calling the Web API endpoint
+    //        Calling the Web API endpoint, callback, code for tokensx
 
     // STEP 1: Auth flow
     //      Call 1: Sign In - RESPONSE: 302 redirects back to your site w/code on url of redirect
@@ -38,7 +40,7 @@ public class AuthApiRequest extends ApiRequest {
     @Inject
     private Repository repository;
 
-    public String authorizeUrl() throws UnsupportedEncodingException {
+    public String   authorizeUrl() throws UnsupportedEncodingException {
         String clientId = repository.getClientId();
         String redirectUri = repository.getRedirectUrl();
 

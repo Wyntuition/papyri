@@ -33,10 +33,16 @@ public class ApiAuthController {
     @Get(uri="/auth/callback", produces=MediaType.TEXT_PLAIN)
     @ApiResponse(content = @Content(mediaType =  "text/plain", schema = @Schema(type="string")))
     public HttpResponse<?> authorizeCallback(String code) throws URISyntaxException, ExecutionException, InterruptedException, UnsupportedEncodingException {
-        log.info("Auth Callback: token...");
+        log.info("Auth Callback wth code: " + code);
+
+        // now exchange code from returned for an access token
         var tokens  =  authApiRequest.token(code);
-        //todo: refresh token
+        System.out.printf("Tokens response: " + tokens);
         var token = new JSONObject(tokens).getString("access_token");
+        // todo
+        var refreshToken = new JSONObject(tokens).getString("refresh_token");
+        //var expiresIn = new JSONObject(tokens).getString("expires_in");
+
         return HttpResponse.ok(token);
     }
 

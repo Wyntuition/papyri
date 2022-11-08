@@ -11,9 +11,13 @@ import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.netty.handler.codec.http.HttpHeaderNames;
+import org.json.JSONObject;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+
+import java.io.UnsupportedEncodingException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,16 +41,33 @@ public class CrawlerControllerTest {
         }
 
         @Test
-        void token_provided_return_valid_results() {
+        void token_provided_return_valid_results() throws UnsupportedEncodingException {
+            // can't use clientcredentials as it doesn't have access to user resources
 //            var token = client.toBlocking().exchange(
-//                    HttpRequest.GET("/auth/clientcredential").accept(MediaType.APPLICATION_JSON)).toString();
+//                    HttpRequest.GET("/auth/clientcredential").accept(MediaType.APPLICATION_JSON)).body();
 
-            var token = "BQDcbzTgp3m5MqnPy2swgRil6ooFIN36fiZZutL2Cmh0AqVVu23hXCqdkp8xARsM6rKu-722xfacKtH7UU3t0GGdywBnMzTf";
+            // fake oauth server?
+//            var token = client.toBlocking().exchange(
+//                    HttpRequest.GET("/auth/login").accept(MediaType.APPLICATION_JSON)).body();
+//            System.out.println("Token: " + token);
+
+
+            // Getting token automatically - how do I get the value from the callback?
+            // var code = authApiRequest.authorizeUrl()
+//            var tokens = authApiRequest.token(code);
+//            System.out.printf("Tokens response: " + tokens);
+//            var token = new JSONObject(tokens).getString("access_token");
+
+            // to get token, browse to https://accounts.spotify.com/authorize?response_type=code&client_id=07c793d9bd344b6092042b523c74de7c&scope=user-read-private,user-library-read,playlist-read-private&redirect_uri=http://localhost:8080/auth/callback&state=1234
+            var token = "BQBjoe0THrR79j9MreBmyl4xnF92TU7j5ZfnM-3W72BA_ThfucmfuDYcTsxj3MOgUEUKNU3OMnnMhlI4JkJ9BaLb_2VWopmkmwF9cKUqoKDD4BbIMjQjPEQ7u8APv5_Hjnqada4fbEF2LGbmgdcNbk1lxjAq9Z5DbYM_kvUht4laac-4yfR-zcVch2CpFsIQ2O154xTSmRFUcCHKD-Q";
+
             var response = client.toBlocking().exchange(
                     //HttpRequest.GET("/playlists/127855684")
                     HttpRequest.GET("/me/tracks")
-                            .bearerAuth(token)
+                            .bearerAuth(token.toString())
                             .accept(MediaType.APPLICATION_JSON));
+
+            System.out.printf("RESPONSE:" + response.body());
 
             assertTrue(response != null);
         }

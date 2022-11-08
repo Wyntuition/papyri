@@ -18,3 +18,5 @@ micronaut:
 spotify:
   client-id: ${SPOTIFY_CLIENT_ID}
   client-secret: ${SPOTIFY_CLIENT_SECRET}
+
+rabbitmq.uri: amqp://localhost:5672

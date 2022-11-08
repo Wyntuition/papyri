@@ -6,6 +6,7 @@ import java.util.List;
 
 @Builder
 public class Playlist {
+    public String id;
     public String name;
     public List<Track> tracks;
 
