@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_papyri_1700091017142-push-trigger-input-set
+  identifier: Build_papyri_1700091017142pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_papyri_1700091017142
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
