@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_papyri_1700091017142-pr-trigger-input-set
+  identifier: Build_papyri_1700091017142prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_papyri_1700091017142
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
